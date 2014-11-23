@@ -16,7 +16,7 @@ def parse_line(x):
 		instr, args, *notes = tail.split(" ")
 	else:
 		instr, args, notes = tail, "", []
-	return addrn, offn, instr, args.split(","), notes
+	return addrn, offn, instr, list(filter(None, args.split(","))), notes
 def parse(fin):
 	return [parse_line(x) for x in fin]
 def ishex(x):
