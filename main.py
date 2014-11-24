@@ -65,10 +65,14 @@ def describe_instruction(x, targets):
 		o = ("REG!", argsd[0][1], argsd[1])
 	elif instr == "mov" and l == 2:
 		o = ("SET", argsd[0], argsd[1])
+	elif instr == "movl" and l == 2:
+		o = ("SET", argsd[0], ("U4", argsd[1]))
 	elif instr in ("and", "or", "add", "sub") and l == 2:
 		o = ("SET", argsd[0], (instr.upper(), argsd[0], argsd[1]))
 	if len(o) == 3 and o[0] == "SET" and o[1][0] == "REG":
 		o = ("REG!", o[1][1], o[2])
+	if len(o) == 3 and o[0] == "SET" and o[1][0] == "MEM":
+		o = ("MEM!", o[1][1], o[2])
 	return o
 def lispstr(x):
 	if type(x) == tuple:
